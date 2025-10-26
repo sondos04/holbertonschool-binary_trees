@@ -3,7 +3,7 @@
 
 /**
 * binary_tree_is_root - Check if the function is root or not
-* @node:  pointer to the node to check 
+* @node:  pointer to the node to check
 *
 * Return: 1 if it is root, or 0 otherwise
 **/

@@ -1,37 +1,40 @@
 #include "binary_trees.h"
 
 /**
- * height_edges - Return height of a tree in edges (local helper).
- * @t: Pointer to node.
+ * height_edges - computes the height of a subtree measured in edges
+ * @tree: pointer to the root of the subtree
  *
- * Return: Height in edges (0 for a single node), 0 for NULL.
+ * Return: height in edges; -1 if tree is NULL (so a leaf has height 0)
  */
-static size_t height_edges(const binary_tree_t *t)
+static int height_edges(const binary_tree_t *tree)
 {
-	size_t lh = 0, rh = 0;
+	int lh, rh;
 
-	if (!t)
-		return (0);
+	if (tree == NULL)
+		return (-1);
 
-	if (t->left)
-		lh = 1 + height_edges(t->left);
-	if (t->right)
-		rh = 1 + height_edges(t->right);
+	lh = height_edges(tree->left);
+	rh = height_edges(tree->right);
 
-	return (lh > rh ? lh : rh);
+	return ((lh > rh ? lh : rh) + 1);
 }
 
 /**
- * binary_tree_balance - Measures the balance factor of a binary tree.
- * @tree: Pointer to the root node of the tree to measure.
+ * binary_tree_balance - measures the balance factor of a binary tree
+ * @tree: pointer to the root node of the tree to measure
  *
- * Return: left-height - right-height. If @tree is NULL, return 0.
+ * Return: balance factor (left height - right height). If tree is NULL, 0.
  */
 int binary_tree_balance(const binary_tree_t *tree)
 {
-	if (!tree)
+	int lh, rh;
+
+	if (tree == NULL)
 		return (0);
 
-	return ((int)height_edges(tree->left) - (int)height_edges(tree->right));
+	lh = height_edges(tree->left);
+	rh = height_edges(tree->right);
+
+	return (lh - rh);
 }
 
